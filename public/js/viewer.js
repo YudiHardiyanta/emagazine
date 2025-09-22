@@ -10,6 +10,8 @@ function showLoading(show) {
   if (overlay) overlay.classList.toggle('hidden', !show);
 }
 
+const container = document.getElementById("flipbook");
+
 function loadListOfPDFs() {
   fetch('/api/pdfs').then(r => r.json()).then(list => {
     pdfSelect.innerHTML = '';
@@ -89,6 +91,16 @@ pdfSelect.addEventListener('change', (e) => {
   u.searchParams.set('pdf', val);
   window.history.replaceState({}, '', u);
   loadPDF(val);
+});
+
+
+// Fullscreen Button
+document.getElementById("fullscreenBtn").addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    container.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
 });
 
 loadListOfPDFs();
